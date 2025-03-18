@@ -1,32 +1,36 @@
 const { ethers } = require("hardhat");
-const prompt = require("prompt-sync")();
 
 async function main() {
     const [deployer] = await ethers.getSigners();
-    console.log("Deploying contract with the account:", deployer.address);
+    console.log("🚀 Deploying contract with the account:", deployer.address);
 
-    // Solicita informações do token ao usuário
-    const name = prompt("Enter token name: ");
-    const symbol = prompt("Enter token symbol: ");
-    const supply = prompt("Enter total supply: ");
+    // Captura os valores das variáveis de ambiente
+    const tokenName = process.env.TOKEN_NAME;
+    const tokenSymbol = process.env.TOKEN_SYMBOL;
+    const tokenSupply = process.env.TOTAL_SUPPLY;
 
-    console.log("\nDeploying contract...");
-    const Token = await ethers.getContractFactory("Token");
-    const token = await Token.deploy(name, symbol, supply);
-
-    // Verifica qual versão do ethers está sendo usada
-    if (token.waitForDeployment) {
-        await token.waitForDeployment();  // Para ethers v6
-    } else {
-        await token.deployed();  // Para ethers v5
+    if (!tokenName || !tokenSymbol || !tokenSupply) {
+        console.error("❌ Erro: Nome, símbolo e supply do token são obrigatórios!");
+        process.exit(1);
     }
 
-    console.log("\n✅ Token deployed successfully!");
-    console.log("📌 Contract Address:", token.address);
+    console.log(`📜 Criando o contrato com os seguintes detalhes:
+➡ Nome: ${tokenName}
+➡ Símbolo: ${tokenSymbol}
+➡ Supply Total: ${tokenSupply} unidades`);
+
+    // Criação do contrato
+    const Token = await ethers.getContractFactory("Token");
+    const token = await Token.deploy(tokenName, tokenSymbol, tokenSupply);
+
+    await token.deployed(); // 🔥 Correção aqui
+
+    console.log("✅ Token implantado com sucesso!");
+    console.log("📌 Endereço do contrato:", token.address);
 }
 
 main().catch((error) => {
-    console.error("❌ Deployment failed:", error);
+    console.error("❌ Erro durante o deploy:", error);
     process.exit(1);
 });
 
