@@ -1,22 +1,22 @@
 #!/bin/bash
 
-echo "🚀 Iniciando a criação do Token ERC-20 na Fluent Devnet..."
+echo " Starting the creation of the ERC-20 Token on Fluent Devnet..."
 
-# Instalar dependências
-echo "🔧 Instalando dependências..."
+# Install dependencies
+echo " Installing dependencies..."
 npm install
 
-# Solicitar informações do token ao usuário
-read -p "📌 Digite o nome do token: " TOKEN_NAME
-read -p "🔢 Digite o símbolo do token: " TOKEN_SYMBOL
-read -p "💰 Digite o supply total do token: " TOTAL_SUPPLY
+# Prompt the user for token details
+read -p " Enter the token name: " TOKEN_NAME
+read -p " Enter the token symbol: " TOKEN_SYMBOL
+read -p " Enter the total token supply: " TOTAL_SUPPLY
 
-echo "📜 Criando o contrato com os seguintes detalhes:"
-echo "➡ Nome: $TOKEN_NAME"
-echo "➡ Símbolo: $TOKEN_SYMBOL"
-echo "➡ Supply Total: $TOTAL_SUPPLY unidades"
+echo 📜 Creating the contract with the following details:"
+echo " Name: $TOKEN_NAME"
+echo " Symbol: $TOKEN_SYMBOL"
+echo " Total Supply: $TOTAL_SUPPLY units"
 
-# Passar as variáveis como ambiente para evitar erro HH308
+# Pass variables as environment variables to avoid error HH308
 TOKEN_NAME="$TOKEN_NAME" TOKEN_SYMBOL="$TOKEN_SYMBOL" TOTAL_SUPPLY="$TOTAL_SUPPLY" \
 npx hardhat run scripts/deploy.js --network fluent_devnet1
 
