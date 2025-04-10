@@ -1,5 +1,3 @@
-Este projeto é baseado em [fluentlabs-xyz/fluentbase](https://github.com/fluentlabs-xyz/fluentbase). Agradecimentos à equipe pelo projeto base e estrutura de desenvolvimento.
-
 # TokenFluent - Usage Guide 🚀
 
 This guide will help you install everything you need and use the **TokenFluent** repository in a simple way, even if you've never done something like this before! 😄
